@@ -46,8 +46,8 @@ form {
 
 label {
 	width: 100%;
-  margin: auto;
-  margin-bottom: 25px;
+	margin: auto;
+	margin-bottom: 25px;
 }
 
 button, input {
@@ -58,7 +58,7 @@ button, input {
 	padding: 16px;
 	background-color: #EBECF0;
 	text-shadow: 1px 1px 0 #FFF;
-  }
+}
 
 label input {
 	margin-right: 8px;
@@ -137,7 +137,12 @@ button:active {
 	border-radius: 15px;
 	background: #ecf0f3;
 	box-shadow:  7px 7px 14px #ababab,
-							 -7px -7px 14px #ffffff;
+	-7px -7px 14px #ffffff;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
 }
 
 #pick-a-num:hover {

@@ -62,7 +62,6 @@ function submitFormHandler(e) {
 		
 	};
 
-  document.querySelector('#g-data').classList.add('hidden');
 	console.log(gArr);
 	return true;
 };
