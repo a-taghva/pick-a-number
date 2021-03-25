@@ -88,7 +88,6 @@ function startTimer() {
 
 function stopTimer() {
 	clearInterval(gTimer);
-	console.log(gTime);
 	gTime = 0;
 };
 
@@ -97,35 +96,44 @@ function pickANum(n) {
 };
 
 function chooseOne() {
-
 	const l = gArr.length;
 	if (l) {
 		const n = pickANum(l);
 		const gs = gStatus.childNodes;
 		
 		const choosed = gArr.splice(n, 1)[0];
-
+		
 		for (let g of gs) {
 			if (+g.id === choosed) {
 				g.remove();
 				break;
 			}
-		}
+		};
+
+		if (slctdEl.lastChild) {
+			debugger;
+			const gt = gTime;
+			stopTimer();
+
+			slctdEl.lastChild.textContent += `, ${gt} seconds!`;
+		};
+
+		startTimer();
 
 		if (gCounter < 20) {
 
 			switch(gCounter) {
 				case 1:
-					slctdEl.innerHTML += `${gCounter++}<sup>st</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>st</sup> group: group number ${choosed}</p>`
 					break;
 				case 2:
-					slctdEl.innerHTML += `${gCounter++}<sup>nd</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>nd</sup> group: group number ${choosed}</p>`
 					break;
 				case 3:
-					slctdEl.innerHTML += `${gCounter++}<sup>rd</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>rd</sup> group: group number ${choosed}</p>`
 					break;
 				default:
-					slctdEl.innerHTML += `${gCounter++}<sup>th</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>th</sup> group: group number ${choosed}</p>`
 					break;
 			};
 
@@ -133,16 +141,16 @@ function chooseOne() {
 
 			switch(gCounter % 10) {
 				case 1:
-					slctdEl.innerHTML += `${gCounter++}<sup>st</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>st</sup> group: group number ${choosed}</p>`
 					break;
 				case 2:
-					slctdEl.innerHTML += `${gCounter++}<sup>nd</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>nd</sup> group: group number ${choosed}</p>`
 					break;
 				case 3:
-					slctdEl.innerHTML += `${gCounter++}<sup>rd</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>rd</sup> group: group number ${choosed}</p>`
 					break;
 				default:
-					slctdEl.innerHTML += `${gCounter++}<sup>th</sup> group: group number ${choosed}<br />`
+					slctdEl.innerHTML += `<p>${gCounter++}<sup>th</sup> group: group number ${choosed}</p>`
 					break;
 			};
 		};
