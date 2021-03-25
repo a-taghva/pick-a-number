@@ -4,6 +4,7 @@ let gTime = 0;
 let gCounter = 1;
 let gLimit = 10;
 const gArr = [];
+let checkTimer = true;
 
 const gStatus = document.querySelector('#status');
 
@@ -12,6 +13,7 @@ const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
 document.querySelector("#g-data").addEventListener('submit', submitFormHandler);
 document.querySelector('button[type="reset"]').addEventListener('click', removeErr);
+document.querySelector('#stop-timer').addEventListener('click', stopAndAddTimer);
 
 function removeErr() {
   const hasErr = document.querySelector('#g-number').classList.contains('input-err');
@@ -95,6 +97,18 @@ function pickANum(n) {
 	return Math.floor(Math.random() * n)
 };
 
+function stopAndAddTimer() {
+	if (!gTimer) {
+		return alert("timer is not working!");
+	}
+
+	const gt = gTime;
+	stopTimer();
+	checkTimer = false;
+
+	slctdEl.lastChild.textContent += `, ${gt} seconds`;
+}
+
 function chooseOne() {
 	const l = gArr.length;
 	if (l) {
@@ -110,8 +124,7 @@ function chooseOne() {
 			}
 		};
 
-		if (slctdEl.lastChild) {
-			debugger;
+		if (slctdEl.lastChild && checkTimer) {
 			const gt = gTime;
 			stopTimer();
 
@@ -119,6 +132,7 @@ function chooseOne() {
 		};
 
 		startTimer();
+		checkTimer = true;
 
 		if (gCounter < 20) {
 
