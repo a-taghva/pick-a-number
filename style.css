@@ -32,13 +32,6 @@ main {
 }
 
 #pick-a-num {
-	border: 1px solid black;
-	width: 150px;
-	height: 35px;
-	margin: 50px;
-	padding: 5px 10px;
-	background: khaki;
-	text-align: center;
 }
 
 ul {
@@ -77,6 +70,14 @@ label input {
 	box-shadow:  inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff; 
 }
 
+.input-err {
+	border: 1px solid red;
+}
+
+.err {
+	margin-left: 15px;
+}
+
 .btn {
 	display: flex;
 	justify-content: center;
@@ -101,15 +102,44 @@ button {
 	-3px -3px 8px #fff;
 }
 
+button:hover {
+	cursor: pointer;
+	transform: translateY(1.5px);
+	transition: transform .3s;
+}
+
+button[type='submit']:hover {
+	color: green;
+}
+
+button[type='reset']:hover {
+	color: red;
+}
+
+#pick-a-num {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	width: 150px;
+	height: 35px;
+	padding: 5px 10px;
+	border-radius: 15px;
+	background: #ffffff;
+	box-shadow:  7px 7px 14px #ababab,
+							 -7px -7px 14px #ffffff;
+}
+
 #pick-a-num:hover {
 	transform: translateY(-2px);
+	border-radius: 45px;
 	box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.5);
 	cursor: pointer;
-	transition: box-shadow .5s, transform .3s;
+	transition: box-shadow .5s, border-radius .4s, transform .3s;
 }
 
 #pick-a-num:active {
-	transform: translateY(1.5px);
+	transform: translateY(1px);
 	transition: transform .1s;
 	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 }
