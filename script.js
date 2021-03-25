@@ -9,18 +9,26 @@ const slctdEl = document.querySelector('#slctd');
 const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
 document.querySelector("#g-data").addEventListener('submit', submitFormHandler);
+document.querySelector('button[type="reset"]').addEventListener('click', removeErr);
+
+function removeErr() {
+  const hasErr = document.querySelector('#g-number').classList.contains('input-err');
+
+  if (hasErr) {
+    document.querySelector('#g-number').classList.remove('input-err');
+    document.querySelector('#g-number').nextElementSibling.classList.add('hidden');
+  }
+};
 
 function submitFormHandler(e) {
 	e.preventDefault();
-	const isValidated = validateInputs();
-};
+  removeErr();
 
-function validateInputs() {
 	const gNumberEl = document.querySelector('#g-number');
 	const gNumber = gNumberEl.value.trim().split(' ');
 	const limit = +document.querySelector('#g-limit').value.trim();
 
-	if (!gNumber[0]) {
+	if (!+gNumber[0]) {
     gNumberEl.nextElementSibling.classList.remove('hidden');
     gNumberEl.classList.add('input-err');
 		return false;
@@ -45,6 +53,7 @@ function validateInputs() {
 			if (isNaN(curr)) {
 				gNumberEl.nextElementSibling.classList.remove('hidden');
 				gNumberEl.classList.add('input-err');
+        gArr = [];
 				return false;
 			};
 			
@@ -53,6 +62,7 @@ function validateInputs() {
 		
 	};
 
+  document.querySelector('#g-data').classList.add('hidden');
 	console.log(gArr);
 	return true;
 };
@@ -75,10 +85,10 @@ function pickANum(n) {
 
 function chooseOne() {
 
-	const l = numArr.length;
+	const l = gArr.length;
 	if (l) {
 		const n = pickANum(l);
-		const choosed = numArr.splice(n, 1)[0];
+		const choosed = gArr.splice(n, 1)[0];
 
 		if (gCounter < 20) {
 
