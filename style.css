@@ -4,8 +4,26 @@
 	box-sizing: border-box;
 }
 
+
+.svg-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
+}
+
 body {
-	background: #eee;
+	font-family: 'Lato', Georgia, sans-serif;
+	background: #ecf0f3;
 }
 
 main {
@@ -28,17 +46,59 @@ ul {
 }
 
 form {
-	padding: 10px;
+	padding: 35px;
+	border-radius: 20px;
+	background-color: #ecf0f3;
+	box-shadow: 13px 13px 20px #cbced1,
+	-13px -13px 20px #fff;
 }
 
-form div {
+.form-title {
+	text-align: center;
+	letter-spacing: 0.5px;
 	margin-bottom: 10px;
-	display: flex column;
+	margin-top: -5px;
+	font-weight: bold;
 }
 
-form fieldset {
-	padding: 15px;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+label {
+	width: 100%;
+}
+
+label input {
+	margin: 10px;
+	padding: 5px 10px;
+	border: none;
+	outline: none;
+	background: none;
+	font-size: 18px;
+	color: #555;
+	border-radius: 25px;
+	box-shadow:  inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff; 
+}
+
+.btn {
+	display: flex;
+	justify-content: center;
+}
+
+button svg {
+	height: 22px;
+	margin-bottom: -4px;
+}
+
+button {
+	padding: 5px 15px;
+	margin-right: 10px;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	border-radius: 20px;
+	color: #fff;
+	text-align: center;
+	background: #02c8db;
+	box-shadow: 3px 3px 8px #b1b1b1,
+	-3px -3px 8px #fff;
 }
 
 #pick-a-num:hover {
