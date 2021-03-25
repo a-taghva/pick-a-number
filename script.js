@@ -3,9 +3,9 @@ let myTimer;
 let timer = 0;
 let gCounter = 1;
 
-do {
-	n = +prompt('How many Groups?');
-} while (!n);
+//do {
+	//n = +prompt('How many Groups?');
+//} while (!n);
 
 const numArr = generateNumArr(n);
 
