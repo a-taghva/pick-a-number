@@ -2,6 +2,7 @@ let n;
 let gTimer;
 let gTime = 0;
 let gCounter = 1;
+let gLimit = 10;
 const gArr = [];
 
 const slctdEl = document.querySelector('#slctd');
@@ -17,11 +18,15 @@ function submitFormHandler(e) {
 function validateInputs() {
 	const gNumberEl = document.querySelector('#g-number');
 	const gNumber = gNumberEl.value.trim().split(' ');
-	const gLimit = +document.querySelector('#g-limit').value.trim();
+	const limit = +document.querySelector('#g-limit').value.trim();
 
-	if (!gNumber || isNaN(gLimit)) {
+	if (!gNumber[0]) {
+    gNumberEl.nextElementSibling.classList.remove('hidden');
+    gNumberEl.classList.add('input-err');
 		return false;
 	};
+
+  gLimit = limit || gLimit;
 
 	if (gNumber.length === 1) {
 
@@ -46,13 +51,11 @@ function validateInputs() {
 			gArr.push(curr);
 		};
 		
-	}
+	};
 
 	console.log(gArr);
 	return true;
 };
-
-statusEl.innerText += `total number of groups: ${n}`
 
 function startTimer() {
 	gTimer = setInterval(() => {
@@ -64,16 +67,6 @@ function stopTimer() {
 	clearInterval(gTimer);
 	console.log(gTime);
 	gTime = 0;
-};
-
-function generateNumArr(n) {
-	const numArr = [];
-	let i = 0;
-	while (numArr.length < n) {
-		numArr[i] = ++i;
-	};
-
-	return numArr;
 };
 
 function pickANum(n) {
