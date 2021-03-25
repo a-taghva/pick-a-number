@@ -1,4 +1,6 @@
 let n;
+let myTimer;
+let timer = 0;
 let gCounter = 1;
 
 do {
@@ -12,6 +14,18 @@ const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
 
 statusEl.innerText += `total number of groups: ${n}`
+
+function startTimer() {
+	myTimer = setInterval(() => {
+		timer++;
+	}, 1000);
+};
+
+function stopTimer() {
+	clearInterval(myTimer);
+	console.log(timer);
+	timer = 0;
+};
 
 function generateNumArr(n) {
 	const numArr = [];
@@ -28,6 +42,8 @@ function pickANum(n) {
 };
 
 function chooseOne() {
+	stopTimer();
+	startTimer();
 	const l = numArr.length;
 	if (l) {
 		const n = pickANum(l);
@@ -69,6 +85,7 @@ function chooseOne() {
 		};
 
 	} else {
+		stopTimer();
 		alert('There\'s nothing to select buddy!');
 	};
 
