@@ -16,25 +16,39 @@ function submitFormHandler(e) {
 
 function validateInputs() {
 	const gNumberEl = document.querySelector('#g-number');
-	const gNumber = gNumberEl.value.trim();
+	const gNumber = gNumberEl.value.trim().split(' ');
 	const gLimit = +document.querySelector('#g-limit').value.trim();
 
 	if (!gNumber || isNaN(gLimit)) {
 		return false;
 	};
 
-	for (let i = 0; i < gNumber.length; i++) {
-		const curr = +gNumber[i];
+	if (gNumber.length === 1) {
 
-		if (isNaN(curr)) {
-			gNumberEl.nextElementSibling.classList.remove('hidden');
-			gNumberEl.classList.add('input-err');
-			return false;
+		for (let i = 1; i <= gNumber[0]; i++) {
+			gArr.push(i);
 		};
 
-		gNumber[i] = curr;
-	};
+	} else {
 
+		while (gNumber.length) {
+			const curr = +gNumber.shift();
+			if (curr === 0) {
+				continue;
+			};
+			
+			if (isNaN(curr)) {
+				gNumberEl.nextElementSibling.classList.remove('hidden');
+				gNumberEl.classList.add('input-err');
+				return false;
+			};
+			
+			gArr.push(curr);
+		};
+		
+	}
+
+	console.log(gArr);
 	return true;
 };
 
@@ -67,8 +81,7 @@ function pickANum(n) {
 };
 
 function chooseOne() {
-	stopTimer();
-	startTimer();
+
 	const l = numArr.length;
 	if (l) {
 		const n = pickANum(l);
@@ -110,8 +123,9 @@ function chooseOne() {
 		};
 
 	} else {
-		stopTimer();
+
 		alert('There\'s nothing to select buddy!');
+
 	};
 
 };
