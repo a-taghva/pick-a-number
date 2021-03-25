@@ -1,30 +1,55 @@
 let n;
-let myTimer;
-let timer = 0;
+let gTimer;
+let gTime = 0;
 let gCounter = 1;
-
-//do {
-	//n = +prompt('How many Groups?');
-//} while (!n);
-
-const numArr = generateNumArr(n);
+const gArr = [];
 
 const slctdEl = document.querySelector('#slctd');
 const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
+document.querySelector("#g-data").addEventListener('submit', submitFormHandler);
+
+function submitFormHandler(e) {
+	e.preventDefault();
+	const isValidated = validateInputs();
+};
+
+function validateInputs() {
+	const gNumberEl = document.querySelector('#g-number');
+	const gNumber = gNumberEl.value.trim();
+	const gLimit = +document.querySelector('#g-limit').value.trim();
+
+	if (!gNumber || isNaN(gLimit)) {
+		return false;
+	};
+
+	for (let i = 0; i < gNumber.length; i++) {
+		const curr = +gNumber[i];
+
+		if (isNaN(curr)) {
+			gNumberEl.nextElementSibling.classList.remove('hidden');
+			gNumberEl.classList.add('input-err');
+			return false;
+		};
+
+		gNumber[i] = curr;
+	};
+
+	return true;
+};
 
 statusEl.innerText += `total number of groups: ${n}`
 
 function startTimer() {
-	myTimer = setInterval(() => {
-		timer++;
+	gTimer = setInterval(() => {
+		gTime++;
 	}, 1000);
 };
 
 function stopTimer() {
-	clearInterval(myTimer);
-	console.log(timer);
-	timer = 0;
+	clearInterval(gTimer);
+	console.log(gTime);
+	gTime = 0;
 };
 
 function generateNumArr(n) {
