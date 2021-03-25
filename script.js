@@ -38,12 +38,14 @@ function submitFormHandler(e) {
 		return false;
 	};
 
-  gLimit = limit || gLimit;
+  	gLimit = limit || gLimit;
+
+	const gArrTest = [];
 
 	if (gNumber.length === 1) {
 
 		for (let i = 1; i <= gNumber[0]; i++) {
-			gArr.push(i);
+			gArrTest.push(i);
 		};
 
 	} else {
@@ -57,14 +59,18 @@ function submitFormHandler(e) {
 			if (isNaN(curr)) {
 				gNumberEl.nextElementSibling.classList.remove('hidden');
 				gNumberEl.classList.add('input-err');
-        		gArr = [];
+        		gArrTest = [];
 				return false;
 			};
 			
-			gArr.push(curr);
+			gArrTest.push(curr);
 		};
 		
 	};
+
+	while(gArr.length) gArr.pop();
+	document.querySelector('#status').innerHTML = "";
+	for (g of gArrTest) gArr.push(g);
 
 	gNumberEl.value = "";
 	document.querySelector('#g-limit').value = '';
