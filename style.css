@@ -9,18 +9,22 @@ body {
 }
 
 main {
-	height: 200px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	display: grid;
+	grid-template-columns: 2fr auto 2fr;
 }
 
 #pick-a-num {
 	border: 1px solid black;
+	width: 150px;
+	height: 35px;
 	margin: 10px;
 	padding: 5px 10px;
 	background: khaki;
+	text-align: center;
+}
+
+ul {
+	list-style: none;
 }
 
 #pick-a-num:hover {

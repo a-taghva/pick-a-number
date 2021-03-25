@@ -11,7 +11,7 @@ const slctdEl = document.querySelector('#slctd');
 const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
 
-statusEl.innerText = `total number of groups: ${n}`
+statusEl.innerText += `total number of groups: ${n}`
 
 function generateNumArr(n) {
 	const numArr = [];
@@ -33,7 +33,41 @@ function chooseOne() {
 		const n = pickANum(l);
 		const choosed = numArr.splice(n, 1)[0];
 
-		slctdEl.innerHTML += `${gCounter++}: group number: ${choosed}<br />`
+		if (gCounter < 20) {
+
+			switch(gCounter) {
+				case 1:
+					slctdEl.innerHTML += `${gCounter++}<sup>st</sup> group: group number ${choosed}<br />`
+					break;
+				case 2:
+					slctdEl.innerHTML += `${gCounter++}<sup>nd</sup> group: group number ${choosed}<br />`
+					break;
+				case 3:
+					slctdEl.innerHTML += `${gCounter++}<sup>rd</sup> group: group number ${choosed}<br />`
+					break;
+				default:
+					slctdEl.innerHTML += `${gCounter++}<sup>th</sup> group: group number ${choosed}<br />`
+					break;
+			};
+
+		} else {
+
+			switch(gCounter % 10) {
+				case 1:
+					slctdEl.innerHTML += `${gCounter++}<sup>st</sup> group: group number ${choosed}<br />`
+					break;
+				case 2:
+					slctdEl.innerHTML += `${gCounter++}<sup>nd</sup> group: group number ${choosed}<br />`
+					break;
+				case 3:
+					slctdEl.innerHTML += `${gCounter++}<sup>rd</sup> group: group number ${choosed}<br />`
+					break;
+				default:
+					slctdEl.innerHTML += `${gCounter++}<sup>th</sup> group: group number ${choosed}<br />`
+					break;
+			};
+		};
+
 	} else {
 		alert('There\'s nothing to select buddy!');
 	};
