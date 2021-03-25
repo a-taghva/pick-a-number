@@ -5,6 +5,8 @@ let gCounter = 1;
 let gLimit = 10;
 const gArr = [];
 
+const gStatus = document.querySelector('#status');
+
 const slctdEl = document.querySelector('#slctd');
 const statusEl = document.querySelector('#status');
 document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
@@ -68,12 +70,13 @@ function submitFormHandler(e) {
 };
 
 function showGData() {
-	const container = document.querySelector('#status');
+	
 	for (const g of gArr) {
 		const divEl = document.createElement('div');
+		divEl.id = g;
 		divEl.textContent = `Group No. ${g}`;
 
-		container.appendChild(divEl);
+		gStatus.appendChild(divEl);
 	}
 }
 
@@ -98,7 +101,16 @@ function chooseOne() {
 	const l = gArr.length;
 	if (l) {
 		const n = pickANum(l);
+		const gs = gStatus.childNodes;
+		
 		const choosed = gArr.splice(n, 1)[0];
+
+		for (let g of gs) {
+			if (+g.id === choosed) {
+				g.remove();
+				break;
+			}
+		}
 
 		if (gCounter < 20) {
 
