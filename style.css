@@ -21,6 +21,7 @@
 }
 
 body {
+	padding: 25px;
 	font-family: 'Lato', Georgia, sans-serif;
 	background: #ecf0f3;
 }

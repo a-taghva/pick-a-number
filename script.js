@@ -22,7 +22,7 @@ function removeErr() {
 
 function submitFormHandler(e) {
 	e.preventDefault();
-  removeErr();
+  	removeErr();
 
 	const gNumberEl = document.querySelector('#g-number');
 	const gNumber = gNumberEl.value.trim().split(' ');
@@ -53,7 +53,7 @@ function submitFormHandler(e) {
 			if (isNaN(curr)) {
 				gNumberEl.nextElementSibling.classList.remove('hidden');
 				gNumberEl.classList.add('input-err');
-        gArr = [];
+        		gArr = [];
 				return false;
 			};
 			
@@ -62,9 +62,20 @@ function submitFormHandler(e) {
 		
 	};
 
-	console.log(gArr);
-	return true;
+	gNumberEl.value = "";
+	document.querySelector('#g-limit').value = '';
+	showGData();
 };
+
+function showGData() {
+	const container = document.querySelector('#status');
+	for (const g of gArr) {
+		const divEl = document.createElement('div');
+		divEl.textContent = `Group No. ${g}`;
+
+		container.appendChild(divEl);
+	}
+}
 
 function startTimer() {
 	gTimer = setInterval(() => {
