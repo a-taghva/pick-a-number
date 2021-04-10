@@ -3,8 +3,10 @@ let gTimer;
 let gTime = 0;
 let gCounter = 1;
 let gLimit = 10;
-const gArr = [];
 let checkTimer = true;
+let gArr = [];
+let gRemaining = [];
+let gSelected = [];
 
 const gStatus = document.querySelector('#status');
 
@@ -14,6 +16,7 @@ document.querySelector('#pick-a-num').addEventListener('click', chooseOne);
 document.querySelector("#g-data").addEventListener('submit', submitFormHandler);
 document.querySelector('button[type="reset"]').addEventListener('click', removeErr);
 document.querySelector('#stop-timer').addEventListener('click', stopAndAddTimer);
+document.querySelector('#clear').addEventListener('click', clearG)
 
 function removeErr() {
   const hasErr = document.querySelector('#g-number').classList.contains('input-err');
@@ -23,6 +26,20 @@ function removeErr() {
     document.querySelector('#g-number').nextElementSibling.classList.add('hidden');
   }
 };
+
+function clearG() {
+	const ans = confirm('Are you sure you want to delete all of the data?');
+
+	if (ans) {
+		document.querySelector('#slctd').innerHTML = '';
+		document.querySelector('#status').innerHTML = '';
+	
+		localStorage.clear();
+		gRemaining = [];
+		gSelected = [];
+		gArr = [];
+	}
+}
 
 function submitFormHandler(e) {
 	e.preventDefault();
@@ -68,14 +85,25 @@ function submitFormHandler(e) {
 		
 	};
 
-	while(gArr.length) gArr.pop();
+	gSelected = [];
+	gArr = [];
+	gRemaining = [];
 	document.querySelector('#status').innerHTML = "";
-	for (g of gArrTest) gArr.push(g);
+	for (g of gArrTest) {
+		gArr.push(g);
+		gRemaining.push(g);
+	}
+
+	localStorage.setItem('remained', JSON.stringify(gRemaining));
 
 	gNumberEl.value = "";
 	document.querySelector('#g-limit').value = '';
 	showGData();
 };
+
+function save(x, t) {
+	localStorage.setItem(x, JSON.stringify(t));
+}
 
 function showGData() {
 	
@@ -104,7 +132,7 @@ function pickANum(n) {
 };
 
 function stopAndAddTimer() {
-	if (!gTimer) {
+	if (!gTimer || !checkTimer) {
 		return alert("timer is not working!");
 	}
 
@@ -125,6 +153,14 @@ function chooseOne() {
 		
 		for (let g of gs) {
 			if (+g.id === choosed) {
+				for (let i = 0; i < gRemaining.length; i++) {
+					if (gRemaining[i] === +g.id) {
+						gSelected.push(gRemaining.splice(i, 1)[0]);
+						localStorage.setItem('remained', JSON.stringify(gRemaining));
+						localStorage.setItem('selected', JSON.stringify(gSelected));
+						break;
+					};
+				}
 				g.remove();
 				break;
 			}

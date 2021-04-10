@@ -186,3 +186,28 @@ button:active {
 	justify-self: center;
 	grid-row-start: 3;
 }
+
+#clear {
+	grid-column-start: -2;
+	color: red;
+	justify-self: end;
+	width: max-content;
+	height: max-content;
+}
+
+ul {
+	list-style: none;
+}
+
+ul li {
+	margin-bottom: 15px;
+	padding: 10px 35px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.g-name {
+	color: rgb(31, 33, 80);
+	text-shadow: .1px .1px 2px black;
+	text-transform: uppercase;
+}
+
