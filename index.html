@@ -1,78 +1,55 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="wanna a pick a random number?" />
-    <meta name="author" content="Ali Taghva" />
-    <title>Number</title>
-    <link rel="stylesheet" href="./style.css" />
+    <title>socket.io</title>
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }
+    </style>
   </head>
-
   <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+        <script>
+          const socket=io();
 
-		<main>
-			<button id="stop-timer">Stop Timer</button>
-			<button id="clear">Clear</button>
+          const form=document.getElementById('form');
+          const input=document.getElementById('input');
 
-			<div id="pick-a-num">Pick a Group</div>
+          let hasNickName=false;
+          let nickname='not set';
 
+          form.addEventListener('submit', e => {
+            e.preventDefault();
+                      
+            if (input.value && !hasNickName) {
+              nickname=input.value;
+              hasNickName=true;
+              input.value='';
+            } else if (input.value) {
+              socket.emit('chat message', `${nickname}: ${input.value}`);
+              input.value='';
+            }
 
-				<div id="slctd">
-					<ul id="selected-gs">
-						<li class="g-selected">1<sup>st</sup> Group: group number 1, 1 seconds!</li>
-						<li class="g-selected">2<sup>nd</sup> Group: <span class="g-name">group no. 1</span>, 1 seconds!</li>
-						<li class="g-selected">3<sup>rd</sup> Group: group number 1, 1 seconds!</li>
-					</ul>
-				</div>
-				
+          });
 
-				<form id='g-data'>
-					<div class="form-title">
-						Groups
-					</div>
-					<div class="fields">
-
-						<label for="g-number">
-							<input id="g-number" type="text" placeholder="How many groups?" />
-							<span class="err hidden">*Please enter a valid data!</span>	
-						</label>
-
-						<label for="g-limit">
-							<input type="number" id="g-limit" placeholder="time limit? (minutes)" />
-						</label>
-
-						<div class="btn">
-							<button type='reset'>
-								<svg class="svg-icon" viewBox="0 0 20 20">
-									<path fill="none" d="M13.864,6.136c-0.22-0.219-0.576-0.219-0.795,0L10,9.206l-3.07-3.07c-0.219-0.219-0.575-0.219-0.795,0
-										c-0.219,0.22-0.219,0.576,0,0.795L9.205,10l-3.07,3.07c-0.219,0.219-0.219,0.574,0,0.794c0.22,0.22,0.576,0.22,0.795,0L10,10.795
-										l3.069,3.069c0.219,0.22,0.575,0.22,0.795,0c0.219-0.22,0.219-0.575,0-0.794L10.794,10l3.07-3.07
-										C14.083,6.711,14.083,6.355,13.864,6.136z M10,0.792c-5.086,0-9.208,4.123-9.208,9.208c0,5.085,4.123,9.208,9.208,9.208
-										s9.208-4.122,9.208-9.208C19.208,4.915,15.086,0.792,10,0.792z M10,18.058c-4.451,0-8.057-3.607-8.057-8.057
-										c0-4.451,3.606-8.057,8.057-8.057c4.449,0,8.058,3.606,8.058,8.057C18.058,14.45,14.449,18.058,10,18.058z"></path>
-								</svg>
-								reset
-							</button>
-							<button type='submit'>
-								<svg class="svg-icon" viewBox="0 0 20 20">
-									<path fill="none" d="M9.917,0.875c-5.086,0-9.208,4.123-9.208,9.208c0,5.086,4.123,9.208,9.208,9.208s9.208-4.122,9.208-9.208
-										C19.125,4.998,15.003,0.875,9.917,0.875z M9.917,18.141c-4.451,0-8.058-3.607-8.058-8.058s3.607-8.057,8.058-8.057
-										c4.449,0,8.057,3.607,8.057,8.057S14.366,18.141,9.917,18.141z M13.851,6.794l-5.373,5.372L5.984,9.672
-										c-0.219-0.219-0.575-0.219-0.795,0c-0.219,0.22-0.219,0.575,0,0.794l2.823,2.823c0.02,0.028,0.031,0.059,0.055,0.083
-										c0.113,0.113,0.263,0.166,0.411,0.162c0.148,0.004,0.298-0.049,0.411-0.162c0.024-0.024,0.036-0.055,0.055-0.083l5.701-5.7
-										c0.219-0.219,0.219-0.575,0-0.794C14.425,6.575,14.069,6.575,13.851,6.794z"></path>
-								</svg>
-								submit
-							</button>
-						</div>
-					</div>
-				</form>
-
-				<div id="status"></div>
-
-
-		</main>
-
-    <script src="./script.js"></script>
+          socket.on('chat message', msg => {
+            const item=document.createElement('li');
+            item.textContent=msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.scrollHeight);
+          });
+        </script>
   </body>
 </html>
